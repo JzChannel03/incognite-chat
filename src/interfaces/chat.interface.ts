@@ -4,4 +4,5 @@ export type ChatProps = {
   unreadCount: number;
   lastMessageTime: string;
   id: string;
+  userName: string;
 };

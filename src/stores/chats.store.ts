@@ -5,7 +5,7 @@ import { persist } from "zustand/middleware";
 interface ChatStoreProps {
   chats: ChatProps[];
   setChats: (chats: ChatProps[]) => void;
-  getChatById: (id: string) => ChatProps | undefined;
+  getChatByUser: (userName: string) => ChatProps | undefined;
 }
 
 export const chatStore = create<ChatStoreProps>()(
@@ -13,8 +13,8 @@ export const chatStore = create<ChatStoreProps>()(
     (set, get) => ({
       chats: [] as ChatProps[],
       setChats: (chats: ChatProps[]) => set({ chats }),
-      getChatById: (id: string) => {
-        return get().chats.find((chat) => chat.id === id);
+      getChatByUser: (userName: string) => {
+        return get().chats.find((chat) => chat.userName === userName);
       },
     }),
     { name: "chat-storage" }

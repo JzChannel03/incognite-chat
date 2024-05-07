@@ -7,6 +7,7 @@ function App() {
   const setChats = chatStore((state) => state.setChats);
   useEffect(() => {
     setChats(generateChatData());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

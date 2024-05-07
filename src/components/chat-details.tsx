@@ -2,11 +2,10 @@ import { useParams } from "react-router-dom";
 import { chatStore } from "../stores/chats.store";
 
 const ChatDetails = () => {
-  const getChatById = chatStore((state) => state.getChatById);
-  const { id } = useParams() as { id: string };
-  console.log(id);
-  const chat = getChatById(id);
-  console.log(chat);
+  const getChatByUser = chatStore((state) => state.getChatByUser);
+  const { userName } = useParams() as { userName: string };
+  const chat = getChatByUser(userName);
+
   return (
     <div>
       {chat ? (
