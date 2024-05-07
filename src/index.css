@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
+
+* {
+  -ms-overflow-style: none; /* IE y Edge */
+  box-sizing: border-box;
+  font-family: "Comfortaa", sans-serif;
+  scrollbar-width: none; /* Firefox */
+  user-select: none;
+}
+
+.bg-blue-gradient {
+  background-image: linear-gradient(to bottom right, #b3d1ff, #4a8cdb, #0a2e6b);
+}
+
+body::-webkit-scrollbar,
+.scrollable::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* heading tags with tailwind */
+h1 {
+  @apply text-4xl font-bold;
+}
+h2 {
+  @apply text-3xl font-bold;
+}
+h3 {
+  @apply text-2xl font-bold;
+}
+h4 {
+  @apply text-xl;
+}
+h5 {
+  @apply text-lg;
+}
+h6 {
+  @apply text-base;
+}
