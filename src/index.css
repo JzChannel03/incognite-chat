@@ -12,6 +12,17 @@
   user-select: none;
 }
 
+.chat-bg {
+  background-image: url("./assets/chats-bg.jpg");
+  background-position: center; /* Centra la imagen en el viewport */
+  background-repeat: no-repeat;
+  background-size: cover; /* Cubre todo el viewport con la imagen */
+}
+
+.bubble-chat-bg {
+  background: #5ed1ea;
+}
+
 .bg-blue-gradient {
   background-image: linear-gradient(to bottom right, #b3d1ff, #4a8cdb, #0a2e6b);
 }

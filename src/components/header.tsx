@@ -47,6 +47,7 @@ export default function Header() {
           New Chat
         </Button>
       </section>
+      <hr className="w-full" />
       <section>
         <Input
           isClearable
