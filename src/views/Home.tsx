@@ -3,18 +3,45 @@ import Body from "../components/body";
 import Header from "../components/header";
 import MobileNav from "../components/mobile-nav";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useEffect, useRef, useState } from "react";
 
-function ChatBubble({ isMine }: Readonly<{ isMine: boolean }>) {
+// fake messages generator
+function generateMessages() {
+  const messages = [];
+  for (let i = 0; i < 25; i++) {
+    messages.push({
+      name: "Joseph",
+      message: "Hola Hermanito!",
+      unreadCount: 0,
+      lastMessageTime: "10:00 AM",
+    });
+  }
+  return messages;
+}
+
+function ChatBubble({
+  isMine,
+  message,
+}: Readonly<{ isMine: boolean; message: string }>) {
   return (
     <div className={`flex w-full ${isMine ? "flex-row-reverse" : "flex-row"}`}>
       <span className="p-2 rounded-md w-fit text-wrap bubble-chat-bg">
-        Hola Hermanito!
+        {message}
       </span>
     </div>
   );
 }
 
 function ChatPreview() {
+  const [messages, setMessages] = useState(generateMessages());
+  const [textToSend, setTextToSend] = useState("");
+  const listMessageContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const container = listMessageContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [textToSend]);
   return (
     <section className="border-gray-200 grid grid-rows-[60px,1fr,80px] border-l-1 border-solid w-4/6 h-full">
       <div className="flex items-center px-5 py-3 text-white align-middle">
@@ -22,16 +49,16 @@ function ChatPreview() {
       </div>
       <div
         /* style={{ backgroundImage: `url(${chatBg})` }} */
-        className={`bg-white w-full h-full flex gap-2 flex-col-reverse shrink-0 basis-auto p-5 bg-[image:var(--image-url)]`}
+        className={`bg-white w-full h-full flex gap-2 flex-col shrink-0 basis-auto p-5 bg-[image:var(--image-url)] overflow-y-auto`}
+        ref={listMessageContainerRef}
       >
-        <ChatBubble isMine={true} />
-        <ChatBubble isMine={false} />
-        <ChatBubble isMine={false} />
-        <ChatBubble isMine={true} />
-        <ChatBubble isMine={true} />
-        <ChatBubble isMine={true} />
-        <ChatBubble isMine={false} />
-        <ChatBubble isMine={true} />
+        {messages.map((message, index) => (
+          <ChatBubble
+            key={message.message + index}
+            message={message.message}
+            isMine={index % 2 === 0}
+          />
+        ))}
       </div>
       <div className="flex flex-row justify-center items-center gap-2 bg-red-400 p-5 w-full h-full">
         <Icon
@@ -39,8 +66,30 @@ function ChatPreview() {
           width={30}
           icon="majesticons:microphone"
         />
-        <Input placeholder="Escribe tu mensaje..." />
-        <button className="bg-blue-gradient p-2 rounded-2xl text-white">
+        <Input
+          placeholder="Escribe tu mensaje..."
+          value={textToSend}
+          onChange={(e) => {
+            setTextToSend(e.target.value);
+          }}
+        />
+        <button
+          className="bg-blue-gradient p-2 rounded-2xl text-white"
+          onClick={() => {
+            if (textToSend) {
+              setMessages([
+                ...messages,
+                {
+                  name: "Joseph",
+                  message: textToSend,
+                  unreadCount: 0,
+                  lastMessageTime: "10:00 AM",
+                },
+              ]);
+              setTextToSend("");
+            }
+          }}
+        >
           Enviar
         </button>
       </div>
